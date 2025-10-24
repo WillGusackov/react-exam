@@ -67,6 +67,12 @@ export default function MovieCard({ movie, action }) {
           </Grid>
           <Grid size={{ xs: 6 }}>
             <Typography variant="h6" component="p">
+              <CalendarIcon fontSize="small" />
+              {movie.savings}{" "}
+            </Typography>
+          </Grid>
+          <Grid size={{ xs: 6 }}>
+            <Typography variant="h6" component="p">
               <StarRateIcon fontSize="small" />
               {"  "} {movie.vote_average}{" "}
             </Typography>

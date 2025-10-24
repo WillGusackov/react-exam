@@ -13,6 +13,8 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { getGenres } from "../../api/tmdb-api";
 import img from '../../images/pexels-dziana-hasanbekava-5480827.jpg'
+import topRated from "../../pages/movieTopRated";
+
 
 const formControl =
 {
@@ -25,9 +27,11 @@ export default function FilterMoviesCard(props) {
 
     const { data, error, isPending, isError } = useQuery({
         queryKey: ['genres'],
+        queryKey: ['topRated'],
         queryFn: getGenres,
     });
 
+   
     if (isPending) {
         return <Spinner />;
     }
@@ -38,6 +42,11 @@ export default function FilterMoviesCard(props) {
     const genres = data.genres;
     if (genres[0].name !== "All") {
         genres.unshift({ id: "0", name: "All" });
+    }
+
+    const topRated = data.topRated;
+    if (topRated[0].name !== "All") {
+        topRated.unshift({ id: "0", name: "All" });
     }
 
     const handleChange = (e, type, value) => {
@@ -52,6 +61,10 @@ export default function FilterMoviesCard(props) {
     const handleGenreChange = (e) => {
         handleChange(e, "genre", e.target.value);
     };
+
+    const handleTopRatedChange = (e) => {
+        handleChange(e, "topRated", e.target.value);
+    }
 
 
 
@@ -75,6 +88,14 @@ export default function FilterMoviesCard(props) {
                     value={props.titleFilter}
                     onChange={handleTextChange}
                 />
+
+<FormControl sx={{ ...formControl }}>
+                    <InputLabel id="rated-label">Rated</InputLabel>
+                    <button key={"topRated"} value={"topRated"} onClick={handleTopRatedChange}>
+                            Top Rated
+                        </button>
+                </FormControl>
+
 
                 <FormControl sx={{ ...formControl }}>
                     <InputLabel id="genre-label">Genre</InputLabel>
