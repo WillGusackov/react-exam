@@ -70,7 +70,12 @@ export const getMovie = (args) => {
    });
   };
 
-
+  export const getRatedMovies = () => {
+    fetch('https://api.themoviedb.org/3/account/22407704/rated/movies?language=en-US&page=1&sort_by=created_at.asc', options)
+  .then(res => res.json())
+  .then(res => console.log(res))
+  .catch(err => console.error(err));
+  }
   export const getMovieReviews = ({ queryKey }) => {
     const [, idPart] = queryKey;
     const { id } = idPart;
